@@ -49,20 +49,49 @@
       key-positions = <12 13>;
     };
 
-    del_word {
+    mac_del_word {
       bindings = <&kp LA(BACKSPACE)>;
       key-positions = <23 22>;
+      layers = <0>;
+    };
+
+    win_del_word {
+      bindings = <&kp LC(BACKSPACE)>;
+      key-positions = <22 23>;
+      layers = <4>;
     };
   };
 
   macros {
+    bt_macro_mac: bt_macro_mac {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&to 0 &bt BT_SEL 0>;
+      label = "BT_MACRO_MAC";
+      wait-ms = <0>;
+      tap-ms = <0>;
+    };
+
+    bt_macro_win: bt_macro_win {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&to 4 &bt BT_SEL 1>;
+      label = "BT_MACRO_WIN";
+    };
+
+    bt_macro_work_mac: bt_macro_work_mac {
+      compatible = "zmk,behavior-macro";
+      #binding-cells = <0>;
+      bindings = <&to 0 &bt BT_SEL 2>;
+      label = "BT_MACRO_WORK_MAC";
+    };
   };
 
   keymap {
     compatible = "zmk,keymap";
 
-    base {
-      label = "Base Layer";
+    macos_base {
+      label = "MacOS Base layer";
       bindings = <
 &mt LEFT_GUI ESC   &kp Q  &kp W  &kp E            &kp R            &kp T          &kp Y        &kp U                  &kp I      &kp O    &kp P     &mt RIGHT_GUI LEFT_BRACKET
 &mt LCTRL TAB      &kp A  &kp S  &kp D            &kp F            &kp G          &kp H        &kp J                  &kp K      &kp L    &kp SEMI  &mt RCTRL APOS
@@ -71,8 +100,8 @@
       >;
     };
 
-    nums {
-      label = "Nums";
+    macos_nums {
+      label = "Numbers and symbols";
       bindings = <
 &kp TILDE  &kp LC(NUMBER_1)  &kp LC(NUMBER_2)  &kp LC(NUMBER_3)  &kp LC(NUMBER_4)  &kp LG(LA(N))    &kp LG(LS(N))  &kp NON_US_BACKSLASH  &kp NON_US_HASH  &kp PIPE              &kp DOT                &kp GRAVE
 &kp PLUS   &kp EXCL          &kp AT            &kp HASH          &kp DOLLAR        &kp PERCENT      &kp CARET      &kp AMPERSAND         &kp ASTERISK     &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDER
@@ -81,8 +110,8 @@
       >;
     };
 
-    navi_tiling {
-      label = "Navi and Tiling";
+    macos_navi_tiling {
+      label = "MacOS navigation and tiling";
       bindings = <
 &kp LCMD      &kp LG(X)  &kp LC(LA(LG(LEFT_ARROW)))  &kp LC(LA(RETURN))     &kp LC(LA(LG(RIGHT_ARROW)))  &kp LG(EQUAL)               &kp K_MUTE    &kp RG(LEFT)        &kp UP              &kp LG(RIGHT_ARROW)  &kp C_PREV        &kp RIGHT_GUI
 &kp LCTRL     &kp LG(C)  &kp LC(LA(LEFT))            &kp LC(LA(BACKSPACE))  &kp LC(LA(RIGHT))            &sk LC(LA(LS(LEFT_GUI)))    &kp C_VOL_UP  &kp LEFT            &kp DOWN            &kp RIGHT            &kp C_PLAY_PAUSE  &kp RCTRL
@@ -91,13 +120,53 @@
       >;
     };
 
-    bt_misc {
-      label = "BT and Other HKs";
+    macos_bt_misc {
+      label = "MacOS BT and Other HKs";
       bindings = <
-&out OUT_TOG  &none  &none  &none          &none          &bt BT_SEL 0    &bt BT_SEL 2  &none   &none   &none  &none  &out OUT_TOG
-&none         &none  &none  &none          &kp LG(LC(F))  &bt BT_SEL 1    &bt BT_SEL 3  &none   &none   &none  &none  &none
-&none         &none  &none  &kp LC(GRAVE)  &none          &bt BT_CLR      &bt BT_CLR    &none   &none   &none  &none  &none
-                            &trans         &trans         &trans          &trans        &trans  &trans
+&out OUT_TOG  &none  &none  &none          &none          &bt_macro_mac    &bt_macro_work_mac  &none   &none   &none  &none  &out OUT_TOG
+&none         &none  &none  &none          &kp LG(LC(F))  &bt_macro_win    &bt BT_SEL 3        &none   &none   &none  &none  &none
+&none         &none  &none  &kp LC(GRAVE)  &none          &bt BT_CLR       &bt BT_CLR          &none   &none   &none  &none  &none
+                            &trans         &trans         &trans           &trans              &trans  &trans
+      >;
+    };
+
+    win_base {
+      label = "Win Base Layer";
+      bindings = <
+&mt LEFT_GUI ESC   &kp Q  &kp W  &kp E            &kp R            &kp T          &kp Y        &kp U                  &kp I      &kp O    &kp P     &mt RIGHT_GUI LEFT_BRACKET
+&mt LCTRL TAB      &kp A  &kp S  &kp D            &kp F            &kp G          &kp H        &kp J                  &kp K      &kp L    &kp SEMI  &mt RCTRL APOS
+&mt LEFT_ALT BSLH  &kp Z  &kp X  &kp C            &kp V            &kp B          &kp N        &kp M                  &kp COMMA  &kp DOT  &kp FSLH  &mt RIGHT_ALT RIGHT_BRACKET
+                                 &lt 5 BACKSPACE  &mt LSHFT SPACE  &lt 6 ENTER    &lt 6 ENTER  &mt RIGHT_SHIFT SPACE  &lt 5 DEL
+      >;
+    };
+
+    win_nums_fs {
+      label = "Numbers, symbols and Fs";
+      bindings = <
+&kp GRAVE  &kp F2        &kp F3  &kp F4    &kp F5      &kp F6         &kp F7       &kp F8         &kp F9        &kp F10               &kp F11                &kp TILDE
+&kp PLUS   &kp EXCL      &kp AT  &kp HASH  &kp DOLLAR  &kp PERCENT    &kp CARET    &kp AMPERSAND  &kp ASTERISK  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDER
+&kp EQUAL  &kp NUMBER_1  &kp N2  &kp N3    &kp N4      &kp N5         &kp N6       &kp N7         &kp N8        &kp N9                &kp N0                 &kp MINUS
+                                 &trans    &trans      &lt 7 ENTER    &lt 7 ENTER  &trans         &trans
+      >;
+    };
+
+    win_navi_tiling {
+      label = "Win navigation and tiling";
+      bindings = <
+&kp LCMD      &kp LC(X)  &kp LG(LS(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LG(LS(RIGHT_ARROW))  &kp LC(EQUAL)    &kp K_MUTE    &kp HOME            &kp UP         &kp END              &kp C_PREV        &kp RIGHT_GUI
+&kp LCTRL     &kp LC(C)  &kp LG(LEFT)            &kp LG(DOWN)      &kp LG(RIGHT)            &sk LC(N0)       &kp C_VOL_UP  &kp LEFT            &kp DOWN       &kp RIGHT            &kp C_PLAY_PAUSE  &kp RCTRL
+&kp LEFT_ALT  &kp LC(V)  &kp LC(LEFT)            &kp LG(TAB)       &kp LC(RIGHT)            &kp LC(MINUS)    &kp C_VOL_DN  &kp LC(LEFT_ARROW)  &kp LG(LS(S))  &kp LC(RIGHT_ARROW)  &kp C_NEXT        &kp RALT
+                                                 &lt 7 BACKSPACE   &trans                   &trans           &trans        &trans              &lt 7 DELETE
+      >;
+    };
+
+    win_bt_misc {
+      label = "Win BT and Other HKs";
+      bindings = <
+&out OUT_TOG  &none  &none  &none          &none               &bt_macro_mac    &bt_macro_work_mac  &none   &none   &none  &none  &out OUT_TOG
+&none         &none  &none  &none          &kp LS(LC(ESCAPE))  &bt_macro_win    &bt BT_SEL 3        &none   &none   &none  &none  &none
+&none         &none  &none  &kp LC(GRAVE)  &none               &bt BT_CLR       &bt BT_CLR          &none   &none   &none  &none  &none
+                            &trans         &trans              &trans           &trans              &trans  &trans
       >;
     };
   };
