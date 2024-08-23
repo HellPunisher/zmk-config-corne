@@ -47,43 +47,19 @@
     caps {
       bindings = <&kp CAPS>;
       key-positions = <12 13>;
-    };
-
-    mac_del_word {
-      bindings = <&kp LA(BACKSPACE)>;
-      key-positions = <23 22>;
       layers = <0>;
     };
 
-    win_del_word {
-      bindings = <&kp LC(BACKSPACE)>;
-      key-positions = <22 23>;
-      layers = <4>;
-    };
-  };
-
-  macros {
-    bt_macro_mac: bt_macro_mac {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings = <&to 0 &bt BT_SEL 0>;
-      label = "BT_MACRO_MAC";
-      wait-ms = <0>;
-      tap-ms = <0>;
+    nubs {
+      bindings = <&kp NUBS>;
+      key-positions = <4 3>;
+      layers = <0>;
     };
 
-    bt_macro_win: bt_macro_win {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings = <&to 4 &bt BT_SEL 1>;
-      label = "BT_MACRO_WIN";
-    };
-
-    bt_macro_work_mac: bt_macro_work_mac {
-      compatible = "zmk,behavior-macro";
-      #binding-cells = <0>;
-      bindings = <&to 0 &bt BT_SEL 2>;
-      label = "BT_MACRO_WORK_MAC";
+    nuhs {
+      bindings = <&kp NON_US_HASH>;
+      key-positions = <7 8>;
+      layers = <0>;
     };
   };
 
@@ -120,83 +96,43 @@
   keymap {
     compatible = "zmk,keymap";
 
-    macos_base {
-      label = "MacOS Base layer";
+    base {
+      label = "Base layer";
       bindings = <
-&kp ESCAPE     &kp Q            &kp W            &kp E            &kp R              &kp T          &kp Y        &kp U                  &kp I         &kp O             &kp P                     &kp LEFT_BRACKET
-&kp TAB        &hml LEFT_GUI A  &hml LEFT_ALT S  &hml LCTRL D     &hml LEFT_SHIFT F  &kp G          &kp H        &hmr RIGHT_SHIFT J     &hmr RCTRL K  &hmr RIGHT_ALT L  &hmr RIGHT_GUI SEMICOLON  &kp APOSTROPHE
-&kp BACKSLASH  &kp Z            &kp X            &kp C            &kp V              &kp B          &kp N        &kp M                  &kp COMMA     &kp DOT           &kp FSLH                  &kp RIGHT_BRACKET
-                                                 &lt 1 BACKSPACE  &mt LSHFT SPACE    &lt 2 ENTER    &lt 2 ENTER  &mt RIGHT_SHIFT SPACE  &lt 1 DEL
+&kp ESCAPE     &kp Q            &kp W            &kp E            &kp R              &kp T          &kp Y        &kp U               &kp I         &kp O             &kp P                     &kp LEFT_BRACKET
+&kp TAB        &hml LEFT_GUI A  &hml LEFT_ALT S  &hml LCTRL D     &hml LEFT_SHIFT F  &kp G          &kp H        &hmr RIGHT_SHIFT J  &hmr RCTRL K  &hmr RIGHT_ALT L  &hmr RIGHT_GUI SEMICOLON  &kp APOSTROPHE
+&kp BACKSLASH  &kp Z            &kp X            &kp C            &kp V              &kp B          &kp N        &kp M               &kp COMMA     &kp DOT           &kp FSLH                  &kp RIGHT_BRACKET
+                                                 &lt 1 BACKSPACE  &lt 3 SPACE        &lt 2 ENTER    &lt 2 ENTER  &lt 3 SPACE         &lt 1 DEL
       >;
     };
 
-    macos_nums {
+    nums {
       label = "Numbers and symbols";
       bindings = <
-&kp TILDE  &kp LC(NUMBER_1)  &kp LC(NUMBER_2)  &kp LC(NUMBER_3)  &kp LC(NUMBER_4)  &kp LG(LA(N))    &kp LG(LS(N))  &kp NON_US_BACKSLASH  &kp NON_US_HASH  &kp PIPE              &kp DOT                &kp GRAVE
-&kp PLUS   &kp EXCL          &kp AT            &kp HASH          &kp DOLLAR        &kp PERCENT      &kp CARET      &kp AMPERSAND         &kp ASTERISK     &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDER
-&kp EQUAL  &kp NUMBER_1      &kp N2            &kp N3            &kp N4            &kp N5           &kp N6         &kp N7                &kp N8           &kp N9                &kp N0                 &kp MINUS
-                                               &trans            &trans            &lt 3 ENTER      &lt 3 ENTER    &trans                &trans
+&kp GRAVE  &kp F2        &kp F3  &kp F4    &kp F5      &kp F6         &kp F7     &kp F8         &kp F9        &kp F10               &kp F11                &kp TILDE
+&kp PLUS   &kp EXCL      &kp AT  &kp HASH  &kp DOLLAR  &kp PERCENT    &kp CARET  &kp AMPERSAND  &kp ASTERISK  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDER
+&kp EQUAL  &kp NUMBER_1  &kp N2  &kp N3    &kp N4      &kp N5         &kp N6     &kp N7         &kp N8        &kp N9                &kp N0                 &kp MINUS
+                                 &trans    &kp COMMA   &trans         &trans     &kp DOT        &trans
       >;
     };
 
-    macos_navi_tiling {
-      label = "MacOS navigation and tiling";
+    navi {
+      label = "Navigation";
       bindings = <
-&kp LCMD      &kp LG(X)  &kp LC(LA(LG(LEFT_ARROW)))  &kp LC(LA(RETURN))     &kp LC(LA(LG(RIGHT_ARROW)))  &kp LG(EQUAL)               &kp K_MUTE    &kp RG(LEFT)        &kp UP              &kp LG(RIGHT_ARROW)  &kp C_PREV        &kp RIGHT_GUI
-&kp LCTRL     &kp LG(C)  &kp LC(LA(LEFT))            &kp LC(LA(BACKSPACE))  &kp LC(LA(RIGHT))            &sk LC(LA(LS(LEFT_GUI)))    &kp C_VOL_UP  &kp LEFT            &kp DOWN            &kp RIGHT            &kp C_PLAY_PAUSE  &kp RCTRL
-&kp LEFT_ALT  &kp LG(V)  &kp LC(LEFT)                &kp LC(LA(C))          &kp LC(RIGHT)                &kp LG(MINUS)               &kp C_VOL_DN  &kp RA(LEFT_ARROW)  &kp LG(LC(LS(N4)))  &kp RA(RIGHT_ARROW)  &kp C_NEXT        &kp RALT
-                                                     &lt 3 BACKSPACE        &trans                       &trans                      &trans        &trans              &lt 3 DELETE
+&kp LCMD      &none   &none   &none   &none   &none     &kp HOME      &kp PG_DN        &kp PG_UP           &kp END              &none  &kp RIGHT_GUI
+&kp LCTRL     &trans  &trans  &trans  &trans  &none     &kp LEFT      &kp DOWN         &kp UP              &kp RIGHT            &none  &kp RCTRL
+&kp LEFT_ALT  &none   &none   &none   &none   &none     &kp RA(LEFT)  &kp PRINTSCREEN  &kp LG(LC(LS(N4)))  &kp RA(RIGHT_ARROW)  &none  &kp RALT
+                              &trans  &trans  &trans    &trans        &trans           &trans
       >;
     };
 
-    macos_bt_misc {
-      label = "MacOS BT and Other HKs";
+    bt_media {
+      label = "BT and Media";
       bindings = <
-&out OUT_TOG  &none  &none  &none          &none          &bt_macro_mac    &bt_macro_work_mac  &none   &none   &none  &none  &out OUT_TOG
-&none         &none  &none  &none          &kp LG(LC(F))  &bt_macro_win    &bt BT_SEL 3        &none   &none   &none  &none  &none
-&none         &none  &none  &kp LC(GRAVE)  &none          &bt BT_CLR       &bt BT_CLR          &none   &none   &none  &none  &none
-                            &trans         &trans         &trans           &trans              &trans  &trans
-      >;
-    };
-
-    win_base {
-      label = "Win Base Layer";
-      bindings = <
-&kp ESC        &kp Q            &kp W            &kp E            &kp R              &kp T          &kp Y        &kp U                  &kp I         &kp O             &kp P                     &kp LEFT_BRACKET
-&kp TAB        &hml LEFT_GUI A  &hml LEFT_ALT S  &hml LCTRL D     &hml LEFT_SHIFT F  &kp G          &kp H        &hmr RIGHT_SHIFT J     &hmr RCTRL K  &hmr RIGHT_ALT L  &hmr RIGHT_GUI SEMICOLON  &kp SQT
-&kp BACKSLASH  &kp Z            &kp X            &kp C            &kp V              &kp B          &kp N        &kp M                  &kp COMMA     &kp DOT           &kp FSLH                  &kp RIGHT_BRACKET
-                                                 &lt 5 BACKSPACE  &mt LSHFT SPACE    &lt 6 ENTER    &lt 6 ENTER  &mt RIGHT_SHIFT SPACE  &lt 5 DEL
-      >;
-    };
-
-    win_nums_fs {
-      label = "Numbers, symbols and Fs";
-      bindings = <
-&kp GRAVE  &kp F2        &kp F3  &kp F4    &kp F5      &kp F6         &kp F7       &kp F8         &kp F9        &kp F10               &kp F11                &kp TILDE
-&kp PLUS   &kp EXCL      &kp AT  &kp HASH  &kp DOLLAR  &kp PERCENT    &kp CARET    &kp AMPERSAND  &kp ASTERISK  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp UNDER
-&kp EQUAL  &kp NUMBER_1  &kp N2  &kp N3    &kp N4      &kp N5         &kp N6       &kp N7         &kp N8        &kp N9                &kp N0                 &kp MINUS
-                                 &trans    &trans      &lt 7 ENTER    &lt 7 ENTER  &trans         &trans
-      >;
-    };
-
-    win_navi_tiling {
-      label = "Win navigation and tiling";
-      bindings = <
-&kp LCMD      &kp LC(X)  &kp LG(LS(LEFT_ARROW))  &kp LG(UP_ARROW)  &kp LG(LS(RIGHT_ARROW))  &kp LC(EQUAL)    &kp K_MUTE    &kp HOME            &kp UP         &kp END              &kp C_PREV        &kp RIGHT_GUI
-&kp LCTRL     &kp LC(C)  &kp LG(LEFT)            &kp LG(DOWN)      &kp LG(RIGHT)            &sk LC(N0)       &kp C_VOL_UP  &kp LEFT            &kp DOWN       &kp RIGHT            &kp C_PLAY_PAUSE  &kp RCTRL
-&kp LEFT_ALT  &kp LC(V)  &kp LC(LEFT)            &kp LG(TAB)       &kp LC(RIGHT)            &kp LC(MINUS)    &kp C_VOL_DN  &kp LC(LEFT_ARROW)  &kp LG(LS(S))  &kp LC(RIGHT_ARROW)  &kp C_NEXT        &kp RALT
-                                                 &lt 7 BACKSPACE   &trans                   &trans           &trans        &trans              &lt 7 DELETE
-      >;
-    };
-
-    win_bt_misc {
-      label = "Win BT and Other HKs";
-      bindings = <
-&out OUT_TOG  &none  &none  &none          &none               &bt_macro_mac    &bt_macro_work_mac  &none   &none   &none  &none  &out OUT_TOG
-&none         &none  &none  &none          &kp LS(LC(ESCAPE))  &bt_macro_win    &bt BT_SEL 3        &none   &none   &none  &none  &none
-&none         &none  &none  &kp LC(GRAVE)  &none               &bt BT_CLR       &bt BT_CLR          &none   &none   &none  &none  &none
-                            &trans         &trans              &trans           &trans              &trans  &trans
+&out OUT_TOG  &none         &none         &none         &none         &kp C_MUTE           &kp C_PREVIOUS    &none   &none   &none  &none  &out OUT_TOG
+&bt BT_CLR    &bt BT_SEL 3  &bt BT_SEL 2  &bt BT_SEL 1  &bt BT_SEL 0  &kp C_VOLUME_UP      &kp C_PLAY_PAUSE  &none   &none   &none  &none  &none
+&none         &none         &none         &none         &none         &kp C_VOLUME_DOWN    &kp C_NEXT        &none   &none   &none  &none  &none
+                                          &trans        &trans        &trans               &trans            &trans  &trans
       >;
     };
   };
